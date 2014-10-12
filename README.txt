@@ -34,7 +34,7 @@ Find out if your path is set correctly and if not provide instructions on how to
 
 SeleniumPrep.path_set?
 
-NOTE: Will return a boolean result in addition to helpful messaging. Also, automatically ran after download completes.
+NOTE: Will return a boolean result in addition to helpful messaging. This will automatically run after downloading completes.
 
 == LICENSE:
 
