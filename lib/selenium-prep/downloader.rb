@@ -1,22 +1,60 @@
+require_relative 'urls'
+require_relative 'config-checker'
+require 'uri'
+require 'typhoeus'
+
 module SeleniumPrep
-  class Downloader
+  module Downloader
 
-    URI       = { chrome:                'http://chromedriver.storage.googleapis.com/2.11/',
-                  internet_explorer:     'http://selenium-release.storage.googleapis.com/2.43',
-                  standalone_server:     'http://selenium-release.storage.googleapis.com/2.43' }
+    include URLs
+    extend self
 
-    RESOURCES = { chrome:            { mac32: "#{URI[:chrome]}/chromedriver_mac32.zip",
-                                       win32: "#{URI[:chrome]}/chromedriver_win32.zip",
-                                       linux32: "#{URI[:chrome]}/chromedriver_linux32.zip",
-                                       linux64: "#{URI[:chrome]}/chromedriver_linux64.zip" },
-                  internet_explorer: { win32: "#{URI[:internet_explorer]}/IEDriverServer_Win32_2.43.0.zip",
-                                       win64: "#{URI[:internet_explorer]}/IEDriverServer_x64_2.43.0.zip" },
-                  standalone_server: "#{URI[:standalone_server]}/selenium-server-standalone-2.43.1.jar" }
+    def download
+      ConfigChecker.new
+      prompt_user if downloads_exist?
+      hydra = Typhoeus::Hydra.new(max_concurrency: 3)
+      urls.each do |url|
+        file = file_for url
+        download = File.open(file, 'w')
+        puts "[ #{Time.now} ]   Downloading #{file}"
+        request = Typhoeus::Request.new url
+        request.on_body do |payload|
+          download.write payload
+        end
+        request.on_complete do |response|
+          download.close
+          puts "[ #{Time.now} ]   Finished downloading #{file}"
+        end
+        hydra.queue request
+      end
 
-    def initialize
+      hydra.run
     end
 
+    private
+
+      def urls
+        DRIVERS[ENV['SP_OS_TYPE'].to_sym] << SERVER
+      end
+
+      def file_for(url)
+        filename = File.basename(URI.parse(url).path)
+        File.join(ENV['SP_DOWNLOAD_LOCATION'], filename)
+      end
+
+      def downloads_exist?
+        !Dir.glob("#{ENV['SP_DOWNLOAD_LOCATION']}/*").empty?
+      end
+
+      def prompt_user
+        print "Downloads directory is not empty. Proceed? [Y/N]:  "
+        case gets.chomp.downcase
+        when "y"
+          puts "Proceeding with download."
+        when "n"
+          puts "Aborting download."
+          exit 1
+        end
+      end
   end
 end
-
-puts SeleniumPrep::Downloader.new.inspect
