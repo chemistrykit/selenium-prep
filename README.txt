@@ -6,6 +6,8 @@ selenium-prep helps set up your machine for local Selenium execution for multipl
 
 == INSTALLATION:
 
+Coming soon.
+
 == USAGE:
 
 === Environment Variables
