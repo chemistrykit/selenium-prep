@@ -1,16 +1,17 @@
 require_relative 'selenium-prep/downloader'
 require_relative 'selenium-prep/system/path'
 require_relative 'selenium-prep/system/folder'
+require_relative 'selenium-prep/system/extract'
 
 module SeleniumPrep
 
-  include System::Folder
-
   def self.download
     ConfigChecker.new
-    create_directory unless directory_exists?
-    prompt_user if downloads_exist?
+    System::Folder.create_directory unless System::Folder.directory_exists?
+    System::Folder.prompt_user if System::Folder.downloads_exist?
     Downloader.download
+    System::Extract.extract_zip_files
+    System::Extract.delete_zip_files
     puts "\n"
     path_set?
   end

@@ -17,13 +17,12 @@ module SeleniumPrep
       end
 
       def prompt_user
-        print "Downloads directory is not empty. Proceed? [Y/N]:  "
-        case gets.chomp.downcase
+        print "Downloads directory is not empty. Proceed? [Y/N]:  " unless ENV['SE_DEBUG'] == 'off'
+        case $stdin.gets.chomp.downcase
         when "y"
-          puts "Proceeding with download."
+          puts "Proceeding with download." unless ENV['SE_DEBUG'] == 'off'
         when "n"
-          puts "Aborting download."
-          exit 1
+          raise 'Aborting download.'
         end
       end
 

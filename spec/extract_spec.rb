@@ -21,12 +21,16 @@ describe 'Extract', :acceptance do
   end
 
   it 'extracts' do
-    file_count = files.length
+    file_count = files.count
+    SeleniumPrep::System::Extract.extract_zip_files
+    expect(files.count).to eql file_count + 1
+  end
+
+  it 'cleans up' do
+    file_count = files.count
     zip_files = files.collect { |file| file if file.include?('.zip') }.compact!
-    zip_files.each do |file|
-      SeleniumPrep::System::Extract.unzip file
-    end
-    expect(files.length).to eql file_count + 1
+    SeleniumPrep::System::Extract.delete_zip_files
+    expect(files.count).to eql(file_count - zip_files.count)
   end
 
 end

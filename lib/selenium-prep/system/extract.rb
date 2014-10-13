@@ -6,18 +6,31 @@ module SeleniumPrep
 
       extend self
 
-      def unzip(file)
-        Zip::File.open(file) do |zip_file|
-          zip_file.each do |f|
-            f_path = File.join(ENV['SE_DOWNLOAD_LOCATION'], f.name)
-            zip_file.extract(f, f_path)
+      def extract_zip_files
+        puts "Extracting zip files..." unless ENV['SE_DEBUG'] == 'off'
+        zip_files.each do |file|
+          Zip::File.open(file) do |zip_file|
+            zip_file.each do |f|
+              f_path = File.join(ENV['SE_DOWNLOAD_LOCATION'], f.name)
+              zip_file.extract(f, f_path)
+            end
           end
         end
       end
 
       def delete_zip_files
-        FileUtils.rm("#{ENV['SE_DOWNLOAD_LOCATION']}/*.zip")
+        puts 'Deleting zip files...' unless ENV['SE_DEBUG'] == 'off'
+        zip_files.each { |zip_file| FileUtils.rm zip_file }
+        puts 'Done working with zip files.' unless ENV['SE_DEBUG'] == 'off'
       end
+
+      private
+
+        def zip_files
+          Dir.glob("#{ENV['SE_DOWNLOAD_LOCATION']}/*").collect do |file|
+            file if file.include?('.zip')
+          end.compact!
+        end
 
     end
   end
