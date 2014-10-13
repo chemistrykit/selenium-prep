@@ -12,15 +12,15 @@ Coming soon.
 
 === Environment Variables
 
-SP_OS_TYPE (e.g., 'linux32', 'linux64', 'mac32', 'win32', 'win64')
-SP_DOWNLOAD_LOCATION (e.g., full path)
+SE_OS_TYPE (e.g., 'linux32', 'linux64', 'mac32', 'win32', 'win64')
+SE_DOWNLOAD_LOCATION (e.g., full path)
 
 If these values are not set properly, a RuntimeError will be returned along with a helpful message.
 
 For example:
 
-ENV['SP_DOWNLOAD_LOCATION'] = '/Users/tourdedave/Desktop/bin/test'
-ENV['SP_OS_TYPE'] = 'mac32'
+ENV['SE_DOWNLOAD_LOCATION'] = '/Users/tourdedave/Desktop/bin/test'
+ENV['SE_OS_TYPE'] = 'mac32'
 
 === Downloading
 

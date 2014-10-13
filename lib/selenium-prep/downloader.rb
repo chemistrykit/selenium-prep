@@ -1,16 +1,20 @@
 require_relative 'urls'
 require_relative 'config-checker'
+require_relative 'system/folder'
 require 'uri'
 require 'typhoeus'
+require 'fileutils'
 
 module SeleniumPrep
   module Downloader
 
     include URLs
+    include System::Folder
     extend self
 
     def download
       ConfigChecker.new
+      create_directory unless directory_exists?
       prompt_user if downloads_exist?
       hydra = Typhoeus::Hydra.new(max_concurrency: 3)
       urls.each do |url|
@@ -34,27 +38,13 @@ module SeleniumPrep
     private
 
       def urls
-        DRIVERS[ENV['SP_OS_TYPE'].to_sym] << SERVER
+        DRIVERS[ENV['SE_OS_TYPE'].to_sym] << SERVER
       end
 
       def file_for(url)
         filename = File.basename(URI.parse(url).path)
-        File.join(ENV['SP_DOWNLOAD_LOCATION'], filename)
+        File.join(ENV['SE_DOWNLOAD_LOCATION'], filename)
       end
 
-      def downloads_exist?
-        !Dir.glob("#{ENV['SP_DOWNLOAD_LOCATION']}/*").empty?
-      end
-
-      def prompt_user
-        print "Downloads directory is not empty. Proceed? [Y/N]:  "
-        case gets.chomp.downcase
-        when "y"
-          puts "Proceeding with download."
-        when "n"
-          puts "Aborting download."
-          exit 1
-        end
-      end
   end
 end

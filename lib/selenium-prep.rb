@@ -1,5 +1,5 @@
 require_relative 'selenium-prep/downloader'
-require_relative 'selenium-prep/system'
+require_relative 'selenium-prep/system/path'
 
 module SeleniumPrep
 

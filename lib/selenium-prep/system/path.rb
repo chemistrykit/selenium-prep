@@ -1,4 +1,4 @@
-require_relative 'config-checker'
+require_relative '../config-checker'
 
 module SeleniumPrep
   module System
@@ -6,8 +6,8 @@ module SeleniumPrep
 
       def self.set
         ConfigChecker.new
-        puts "You need to add #{ENV['SP_DOWNLOAD_LOCATION']} to your path.\n\n"
-        case ENV['SP_OS_TYPE']
+        puts "You need to add #{ENV['SE_DOWNLOAD_LOCATION']} to your path.\n\n"
+        case ENV['SE_OS_TYPE']
         when 'win32', 'win64'
           puts "For instructions on how to do that read:\n http://www.computerhope.com/issues/ch000549.htm"
         when 'mac32', 'linux32', 'linux64'
@@ -17,17 +17,17 @@ module SeleniumPrep
 
       def self.set?
         ConfigChecker.new
-        case ENV['SP_OS_TYPE']
+        case ENV['SE_OS_TYPE']
         when 'win32', 'win64'
-          `echo %PATH%'`.include? ENV['SP_DOWNLOAD_LOCATION']
+          `echo %PATH%'`.include? ENV['SE_DOWNLOAD_LOCATION']
         when 'mac32', 'linux32', 'linux64'
-          `echo $PATH`.include? ENV['SP_DOWNLOAD_LOCATION']
+          `echo $PATH`.include? ENV['SE_DOWNLOAD_LOCATION']
         end
       end
 
       def self.path
         ConfigChecker.new
-        case ENV['SP_OS_TYPE']
+        case ENV['SE_OS_TYPE']
         when 'win32', 'win64'
           `echo %PATH%'`
         when 'mac32', 'linux32', 'linux64'
