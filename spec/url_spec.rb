@@ -1,7 +1,7 @@
 require_relative '../lib/selenium-prep/urls'
 require 'typhoeus'
 
-describe 'Selenium URLs are valid -> ' do
+describe 'Selenium URLs are valid -> ', :acceptance do
 
   def request(url)
     Typhoeus.head url
@@ -23,4 +23,5 @@ describe 'Selenium URLs are valid -> ' do
     expect(response.code).to eql 200
     expect(response.headers['Content-Type']).to eql('application/java-archive')
   end
+
 end
