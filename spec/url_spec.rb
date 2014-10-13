@@ -1,3 +1,4 @@
+require_relative 'spec_helper'
 require_relative '../lib/selenium-prep/urls'
 require 'typhoeus'
 
@@ -18,8 +19,7 @@ describe 'Selenium URLs are valid -> ', :acceptance do
   end
 
   it 'Standalone Server' do
-    url = SeleniumPrep::URLs::SERVER
-    response = request url
+    response = request SeleniumPrep::URLs::SERVER
     expect(response.code).to eql 200
     expect(response.headers['Content-Type']).to eql('application/java-archive')
   end

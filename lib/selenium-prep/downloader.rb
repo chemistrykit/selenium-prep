@@ -16,14 +16,14 @@ module SeleniumPrep
       urls.each do |url|
         file = file_for url
         download = File.open(file, 'w')
-        puts "[ #{Time.now} ]   Downloading #{file}"
+        puts "[ #{Time.now} ]   Downloading #{file}" unless ENV['SE_DEBUG'] == 'off'
         request = Typhoeus::Request.new url
         request.on_body do |payload|
           download.write payload
         end
         request.on_complete do |response|
           download.close
-          puts "[ #{Time.now} ]   Finished downloading #{file}"
+          puts "[ #{Time.now} ]   Finished downloading #{file}" unless ENV['SE_DEBUG'] == 'off'
         end
         hydra.queue request
       end
@@ -34,7 +34,10 @@ module SeleniumPrep
     private
 
       def urls
-        DRIVERS[ENV['SE_OS_TYPE'].to_sym] << SERVER
+        tmp = []
+        tmp << DRIVERS[ENV['SE_OS_TYPE'].to_sym]
+        tmp << [ SERVER ]
+        tmp.flatten
       end
 
       def file_for(url)
