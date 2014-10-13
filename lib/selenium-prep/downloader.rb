@@ -15,7 +15,7 @@ module SeleniumPrep
       hydra = Typhoeus::Hydra.new(max_concurrency: 3)
       urls.each do |url|
         file = file_for url
-        download = File.open(file, 'w')
+        download = File.open(file, 'wb')
         puts "[ #{Time.now} ]   Downloading #{file}" unless ENV['SE_DEBUG'] == 'off'
         request = Typhoeus::Request.new url
         request.on_body do |payload|
