@@ -1,6 +1,5 @@
 require_relative 'urls'
 require_relative 'config-checker'
-require_relative 'system/folder'
 require 'uri'
 require 'typhoeus'
 require 'fileutils'
@@ -9,13 +8,10 @@ module SeleniumPrep
   module Downloader
 
     include URLs
-    include System::Folder
     extend self
 
     def download
       ConfigChecker.new
-      create_directory unless directory_exists?
-      prompt_user if downloads_exist?
       hydra = Typhoeus::Hydra.new(max_concurrency: 3)
       urls.each do |url|
         file = file_for url
