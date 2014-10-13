@@ -9,7 +9,7 @@ module SeleniumPrep
       def extract_zip_files
         puts "Extracting zip files..." unless ENV['SE_DEBUG'] == 'off'
         zip_files.each do |file|
-          Zip::File.open(file) do |zip_file|
+          Zip::File.open(file, 'wb') do |zip_file|
             zip_file.each do |f|
               f_path = File.join(ENV['SE_DOWNLOAD_LOCATION'], f.name)
               zip_file.extract(f, f_path)
