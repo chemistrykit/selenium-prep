@@ -21,7 +21,8 @@ module SeleniumPrep
       end
 
       def prompt_user
-        print 'Your downloads directory is not empty. Proceed? [Y/N]:  '
+        puts 'Your downloads directory is not empty. This will overwrite files of the same name.'
+        print 'Proceed? [Y/N]:  '
         case $stdin.gets.chomp.downcase
         when "y"
           puts "Proceeding with download."
