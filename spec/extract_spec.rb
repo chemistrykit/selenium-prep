@@ -8,7 +8,7 @@ describe 'Extract', :acceptance do
     ENV['SE_OS_TYPE'] = 'mac32'
     @loc = ENV['SE_DOWNLOAD_LOCATION'] = File.join(Dir.pwd, 'spec/tmp/file')
     FileUtils.rm_rf @loc
-    FileUtils.mkdir_p(@loc)
+    FileUtils.mkdir_p @loc
     SeleniumPrep::Downloader.download
   end
 

@@ -2,6 +2,7 @@ require_relative 'selenium-prep/downloader'
 require_relative 'selenium-prep/system/path'
 require_relative 'selenium-prep/system/folder'
 require_relative 'selenium-prep/system/extract'
+require_relative 'selenium-prep/overrides'
 
 module SeleniumPrep
 
@@ -28,10 +29,4 @@ module SeleniumPrep
     result
   end
 
-end
-
-module Kernel
-  def puts(input)
-    super input unless ENV['SE_DEBUG'] == 'off'
-  end
 end
