@@ -17,16 +17,11 @@ SE_DOWNLOAD_LOCATION (e.g., full path)
 
 If these values are not set properly, a RuntimeError will be returned along with a helpful message.
 
-For example:
-
-ENV['SE_DOWNLOAD_LOCATION'] = '/Users/tourdedave/Desktop/bin/test'
-ENV['SE_OS_TYPE'] = 'mac32'
-
 === Downloading
 
 SeleniumPrep.download
 
-NOTE: Will check to see if the download directory is empty. If not, it will prompt you to proceed. It will overwrite files of the same name.
+NOTE: The downloader will check to see if the download directory is empty. If not, it will prompt you to proceed, overwriting files of the same name.
 
 === Check System Path
 
