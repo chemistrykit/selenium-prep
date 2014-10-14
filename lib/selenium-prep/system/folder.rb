@@ -16,11 +16,15 @@ module SeleniumPrep
         FileUtils.mkdir_p(ENV['SE_DOWNLOAD_LOCATION'])
       end
 
+      def empty_directory
+        FileUtils.rm_rf Dir.glob("#{ENV['SE_DOWNLOAD_LOCATION']}/*")
+      end
+
       def prompt_user
-        print "Downloads directory is not empty. Proceed? [Y/N]:  " unless ENV['SE_DEBUG'] == 'off'
+        print 'Your downloads directory is not empty. Proceed? [Y/N]:  '
         case $stdin.gets.chomp.downcase
         when "y"
-          puts "Proceeding with download." unless ENV['SE_DEBUG'] == 'off'
+          puts "Proceeding with download."
         when "n"
           raise 'Aborting download.'
         end

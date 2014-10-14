@@ -9,11 +9,11 @@ describe 'Folder creation -> ' do
 
   context 'Sanity Checks' do
 
-    before(:all) do
+    before(:each) do
       FileUtils.mkdir_p(@loc)
     end
 
-    after(:all) do
+    after(:each) do
       FileUtils.rm_rf @loc
     end
 
@@ -31,6 +31,10 @@ describe 'Folder creation -> ' do
       expect(SeleniumPrep::System::Folder.directory_exists?).to be true
     end
 
+    it 'empty directory' do
+      SeleniumPrep::System::Folder.empty_directory
+      expect(SeleniumPrep::System::Folder.downloads_exist?).to be false
+    end
   end
 
   context 'User prompt -> ' do

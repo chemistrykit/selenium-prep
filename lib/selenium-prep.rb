@@ -7,7 +7,7 @@ module SeleniumPrep
 
   def self.download
     ConfigChecker.new
-    System::Folder.create_directory unless System::Folder.directory_exists?
+    System::Folder.create_directory
     System::Folder.prompt_user if System::Folder.downloads_exist?
     Downloader.download
     System::Extract.extract_zip_files
@@ -28,4 +28,10 @@ module SeleniumPrep
     result
   end
 
+end
+
+module Kernel
+  def puts(input)
+    super input unless ENV['SE_DEBUG'] == 'off'
+  end
 end
