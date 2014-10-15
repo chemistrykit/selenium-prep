@@ -2,11 +2,35 @@
 
 == DESCRIPTION:
 
-selenium-prep takes care of the onerous download and PATH configuration for Selenium's browser drivers and standalone server.
+selenium-prep helps set up your machine for local Selenium execution for multiple browsers. It downloads (in parallel) the latest browser drivers and standalone server to a specified location. It will then check your system PATH to see if the directory is in it. If not, it will provide you with information on how to configure it for your operating system.
 
 == INSTALLATION:
 
+Coming soon.
+
 == USAGE:
+
+=== Environment Variables
+
+SE_OS_TYPE (e.g., 'linux32', 'linux64', 'mac32', 'win32', 'win64')
+SE_DOWNLOAD_LOCATION (e.g., full path)
+SE_DEBUG (e.g., 'off' to disable all standard output -- on by default)
+
+If these values are not set properly, a RuntimeError will be returned along with a helpful message.
+
+=== Downloading
+
+SeleniumPrep.download
+
+NOTE: The downloader will check to see if the download directory is empty. If not, it will prompt you to proceed, overwriting files of the same name.
+
+=== Check System Path
+
+Find out if your path is set correctly and if not provide instructions on how to proceed.
+
+SeleniumPrep.path_set?
+
+NOTE: Will return a boolean result in addition to helpful messaging. This will automatically run after downloading completes.
 
 == LICENSE:
 
