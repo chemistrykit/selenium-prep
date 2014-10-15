@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = SeleniumPrep::VERSION
   spec.authors       = ['Dave Haeffner']
   spec.email         = ['dhaeffner@gmail.com']
-  spec.summary       = %q{selenium-prep helps set up your machine for local Selenium execution for multiple browsers. It downloads (in parallel) the latest browser drivers and standalone server to a specified location. It will then check your system PATH to see if the directory is in it. If not, it will provide you with information on how to configure it for your operating system.}
-  spec.description   = %q{See README.txt for more.}
+  spec.summary       = %q{See README.txt for details}
+  spec.description   = %q{selenium-prep helps set up your machine for local Selenium execution for multiple browsers. It downloads (in parallel) the latest browser drivers and standalone server to a specified location. It will then check your system PATH to see if the directory is in it. If not, it will provide you with information on how to configure it for your operating system.}
   spec.homepage      = 'https://github.com/tourdedave/selenium-prep'
   spec.license       = 'MIT'
 
