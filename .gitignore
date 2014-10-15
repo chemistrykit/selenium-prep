@@ -4,3 +4,4 @@ Gemfile.lock
 tmp/
 mkmf.log
 .DS_Store
+pkg
