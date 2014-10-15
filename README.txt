@@ -14,6 +14,7 @@ Coming soon.
 
 SE_OS_TYPE (e.g., 'linux32', 'linux64', 'mac32', 'win32', 'win64')
 SE_DOWNLOAD_LOCATION (e.g., full path)
+SE_DEBUG (e.g., 'off' to disable all standard output -- on by default)
 
 If these values are not set properly, a RuntimeError will be returned along with a helpful message.
 
