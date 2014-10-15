@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = SeleniumPrep::VERSION
   spec.authors       = ['Dave Haeffner']
   spec.email         = ['dhaeffner@gmail.com']
-  spec.summary       = %q{A simple way to configure and launch a Selenium instance}
-  spec.description   = %q{See README.txt}
+  spec.summary       = %q{selenium-prep helps set up your machine for local Selenium execution for multiple browsers. It downloads (in parallel) the latest browser drivers and standalone server to a specified location. It will then check your system PATH to see if the directory is in it. If not, it will provide you with information on how to configure it for your operating system.}
+  spec.description   = %q{See README.txt for more.}
   spec.homepage      = 'https://github.com/tourdedave/selenium-prep'
   spec.license       = 'MIT'
 
@@ -23,4 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.1.0'
   spec.add_development_dependency 'guard-rspec', '~> 4.3.1'
+  spec.add_development_dependency 'rake', '~> 10.3.2'
 end
