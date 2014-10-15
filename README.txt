@@ -6,7 +6,7 @@ selenium-prep helps set up your machine for local Selenium execution for multipl
 
 == INSTALLATION:
 
-Coming soon.
+gem install selenium-prep
 
 == USAGE:
 
