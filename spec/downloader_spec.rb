@@ -1,9 +1,10 @@
+require_relative '../lib/selenium-prep/system/os'
 require_relative '../lib/selenium-prep/downloader'
 
 describe 'Downloader' do
 
   before(:all) do
-    ENV['SE_OS_TYPE'] = 'mac32'
+    SeleniumPrep::System::OS.set_type
     @loc = ENV['SE_DOWNLOAD_LOCATION'] = File.join(Dir.pwd, 'spec/tmp/downloader')
     FileUtils.rm_rf @loc
     FileUtils.mkdir_p(@loc)

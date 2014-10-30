@@ -12,9 +12,9 @@ gem install selenium-prep
 
 === Environment Variables
 
-SE_OS_TYPE (e.g., 'linux32', 'linux64', 'mac32', 'win32', 'win64')
+SE_OS_TYPE (e.g., 'linux32', 'linux64', 'mac32', 'win32', 'win64' -- automatically detected)
+SE_OS_TYPE_BIT (e.g., '32', '64' -- defaults to '32')
 SE_DOWNLOAD_LOCATION (e.g., full path)
-SE_DEBUG (e.g., 'off' to disable all standard output -- on by default)
 
 If these values are not set properly, a RuntimeError will be returned along with a helpful message.
 
@@ -22,7 +22,7 @@ If these values are not set properly, a RuntimeError will be returned along with
 
 SeleniumPrep.prep
 
-NOTE: This will download all of the files, attempt to set the path on your system, and check that the path is set. If not, it will provide some debugging output.
+NOTE: This will download the files for your OS, attempt to set the path on your system, and check that the path is set correctly. If not, it will provide some debugging output.
 
 === Downloading
 
