@@ -23,7 +23,7 @@ describe 'Extract', :acceptance do
   it 'extracts' do
     file_count = files.count
     SeleniumPrep::System::Extract.extract_zip_files
-    expect(files.count).to eql file_count + 1
+    expect(files.count).to be > file_count
   end
 
   it 'cleans up' do

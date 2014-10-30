@@ -10,6 +10,7 @@ module SeleniumPrep
         when 'win32', 'win64'
           system("set path=%path%;#{ENV['SE_DOWNLOAD_LOCATION']}")
           system('reg.exe ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v Path /t REG_EXPAND_SZ /d %path% /f')
+          ENV['PATH'] = "#{ENV['PATH']};#{ENV['SE_DOWNLOAD_LOCATION']}"
         when 'mac32', 'linux32', 'linux64'
           unless set?
             unless bash_updated?
