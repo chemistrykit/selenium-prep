@@ -18,6 +18,12 @@ SE_DEBUG (e.g., 'off' to disable all standard output -- on by default)
 
 If these values are not set properly, a RuntimeError will be returned along with a helpful message.
 
+=== Prep
+
+SeleniumPrep.prep
+
+NOTE: This will download all of the files, attempt to set the path on your system, and check that the path is set. If not, it will provide some debugging output.
+
 === Downloading
 
 SeleniumPrep.download

@@ -2,9 +2,14 @@ require_relative 'selenium-prep/downloader'
 require_relative 'selenium-prep/system/path'
 require_relative 'selenium-prep/system/folder'
 require_relative 'selenium-prep/system/extract'
-require_relative 'selenium-prep/overrides'
 
 module SeleniumPrep
+
+  def self.prep
+    download
+    System::Path.set
+    path_set?
+  end
 
   def self.download
     ConfigChecker.new
@@ -13,8 +18,6 @@ module SeleniumPrep
     Downloader.download
     System::Extract.extract_zip_files
     System::Extract.delete_zip_files
-    puts "\n"
-    path_set?
   end
 
   def self.path_set?
@@ -24,8 +27,6 @@ module SeleniumPrep
       (puts "Selenium is ready to use!") :
       (puts "Your PATH is not configured correctly. \n\nHere is what it's set to now:\n")
     puts System::Path.path
-    puts "\n"
-    System::Path.set
     result
   end
 

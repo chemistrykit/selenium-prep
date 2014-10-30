@@ -1,4 +1,3 @@
-require_relative 'spec_helper'
 require_relative '../lib/selenium-prep/system/folder'
 
 describe 'Folder creation -> ' do
