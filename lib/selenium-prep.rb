@@ -34,7 +34,4 @@ module SeleniumPrep
     result
   end
 
-  private
-
-
 end
