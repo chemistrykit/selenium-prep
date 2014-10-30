@@ -6,34 +6,41 @@ module SeleniumPrep
 
       def self.set
         ConfigChecker.new
-        puts "You need to add #{ENV['SE_DOWNLOAD_LOCATION']} to your path.\n\n"
         case ENV['SE_OS_TYPE']
         when 'win32', 'win64'
-          puts "For instructions on how to do that read:\n http://www.computerhope.com/issues/ch000549.htm"
+          system("set path=%path%;#{ENV['SE_DOWNLOAD_LOCATION']}")
+          system('reg.exe ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v Path /t REG_EXPAND_SZ /d %path% /f')
+          ENV['PATH'] = "#{ENV['PATH']};#{ENV['SE_DOWNLOAD_LOCATION']}"
         when 'mac32', 'linux32', 'linux64'
-          puts "For instructions on how to do that read:\n http://unix.stackexchange.com/questions/26047/how-to-correctly-add-a-path-to-path"
+          unless set?
+            unless bash_updated?
+              system("echo 'export PATH=$PATH:#{ENV['SE_DOWNLOAD_LOCATION']}' | sudo tee -a ~/.bash_profile")
+            end
+            system('source ~/.bash_profile')
+            ENV['PATH'] = "#{ENV['PATH']}:/#{ENV['SE_DOWNLOAD_LOCATION']}"
+          end
         end
       end
 
       def self.set?
-        ConfigChecker.new
         case ENV['SE_OS_TYPE']
         when 'win32', 'win64'
-          `echo %PATH%'`.include? ENV['SE_DOWNLOAD_LOCATION']
+          path.include?(ENV['SE_DOWNLOAD_LOCATION'])
         when 'mac32', 'linux32', 'linux64'
-          `echo $PATH`.include? ENV['SE_DOWNLOAD_LOCATION']
+          path.include?(ENV['SE_DOWNLOAD_LOCATION']) && bash_updated?
         end
       end
 
       def self.path
         ConfigChecker.new
-        case ENV['SE_OS_TYPE']
-        when 'win32', 'win64'
-          `echo %PATH%'`
-        when 'mac32', 'linux32', 'linux64'
-          `echo $PATH`
-        end
+        ENV['PATH']
       end
+
+      private
+
+        def self.bash_updated?
+          !`cat ~/.bash_profile | grep #{ENV['SE_DOWNLOAD_LOCATION']}`.empty?
+        end
 
     end
   end

@@ -2,7 +2,7 @@
 
 == DESCRIPTION:
 
-selenium-prep helps set up your machine for local Selenium execution for multiple browsers. It downloads (in parallel) the latest browser drivers and standalone server to a specified location. It will then check your system PATH to see if the download directory is in it. If not, it will provide you with information on how to configure it for your operating system.
+selenium-prep helps set up your machine for local Selenium execution for multiple browsers. It downloads (in parallel) the latest browser drivers and standalone server to a specified location. It will then check your system PATH to see if the download directory is in it. If not, it will add it for you.
 
 == INSTALLATION:
 
@@ -12,11 +12,17 @@ gem install selenium-prep
 
 === Environment Variables
 
-SE_OS_TYPE (e.g., 'linux32', 'linux64', 'mac32', 'win32', 'win64')
+SE_OS_TYPE (e.g., 'linux32', 'linux64', 'mac32', 'win32', 'win64' -- automatically detected)
+SE_OS_TYPE_BIT (e.g., '32', '64' -- defaults to '32')
 SE_DOWNLOAD_LOCATION (e.g., full path)
-SE_DEBUG (e.g., 'off' to disable all standard output -- on by default)
 
-If these values are not set properly, a RuntimeError will be returned along with a helpful message.
+NOTE: SE_DOWNLOAD_LOCATION is the only variable you need to set. If is not set properly, a RuntimeError will be returned along with a helpful message.
+
+=== Prep
+
+SeleniumPrep.prep
+
+NOTE: This will download the files for your OS, attempt to set the path on your system, and check that the path is set correctly. If not, it will provide some debugging output.
 
 === Downloading
 
@@ -26,11 +32,11 @@ NOTE: The downloader will check to see if the download directory is empty. If no
 
 === Check System Path
 
-Find out if your path is set correctly and if not provide instructions on how to proceed.
+Find out if your path is set correctly and if not provide some debugging output.
 
 SeleniumPrep.path_set?
 
-NOTE: Will return a boolean result in addition to helpful messaging. This will automatically run after downloading completes.
+NOTE: Will return a boolean result in addition to debugging output.
 
 == LICENSE:
 

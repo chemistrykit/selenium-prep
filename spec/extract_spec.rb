@@ -1,11 +1,11 @@
-require_relative 'spec_helper'
+require_relative '../lib/selenium-prep/system/os'
 require_relative '../lib/selenium-prep/downloader'
 require_relative '../lib/selenium-prep/system/extract'
 
 describe 'Extract', :acceptance do
 
   before(:all) do
-    ENV['SE_OS_TYPE'] = 'mac32'
+    SeleniumPrep::System::OS.set_type
     @loc = ENV['SE_DOWNLOAD_LOCATION'] = File.join(Dir.pwd, 'spec/tmp/file')
     FileUtils.rm_rf @loc
     FileUtils.mkdir_p @loc
@@ -23,7 +23,7 @@ describe 'Extract', :acceptance do
   it 'extracts' do
     file_count = files.count
     SeleniumPrep::System::Extract.extract_zip_files
-    expect(files.count).to eql file_count + 1
+    expect(files.count).to be > file_count
   end
 
   it 'cleans up' do
