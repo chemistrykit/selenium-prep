@@ -2,7 +2,7 @@
 
 == DESCRIPTION:
 
-selenium-prep helps set up your machine for local Selenium execution for multiple browsers. It downloads (in parallel) the latest browser drivers and standalone server to a specified location. It will then check your system PATH to see if the download directory is in it. If not, it will add it for you.
+selenium-prep helps set up your machine for local Selenium execution for multiple browsers. It downloads the latest browser drivers and standalone server to a specified location. It will then check your system PATH to see if the download directory is in it. If not, it will add it for you.
 
 == INSTALLATION:
 

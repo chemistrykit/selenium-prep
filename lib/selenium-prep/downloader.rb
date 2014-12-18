@@ -1,7 +1,7 @@
 require_relative 'urls'
 require_relative 'config-checker'
 require 'uri'
-require 'typhoeus'
+require 'rest-client'
 require 'fileutils'
 
 module SeleniumPrep
@@ -12,23 +12,16 @@ module SeleniumPrep
 
     def download
       ConfigChecker.new
-      hydra = Typhoeus::Hydra.new(max_concurrency: 3)
+
       urls.each do |url|
-        file = file_for url
-        download = File.open(file, 'wb')
-        puts "[ #{Time.now} ]   Downloading #{file}"
-        request = Typhoeus::Request.new url
-        request.on_body do |payload|
-          download.write payload
+        download_target = file_for url
+        File.open(download_target, 'wb') do |file|
+          puts "[ #{Time.now} ]   Downloading #{download_target}"
+          file.write(RestClient.get(url))
+          puts "[ #{Time.now} ]   Finished downloading #{download_target}"
         end
-        request.on_complete do |response|
-          download.close
-          puts "[ #{Time.now} ]   Finished downloading #{file}"
-        end
-        hydra.queue request
       end
 
-      hydra.run
     end
 
     private
