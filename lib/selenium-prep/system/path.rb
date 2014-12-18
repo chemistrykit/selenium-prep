@@ -8,11 +8,14 @@ module SeleniumPrep
         ConfigChecker.new
         case ENV['SE_OS_TYPE']
         when 'win32', 'win64'
-          system("set path=%path%;#{ENV['SE_DOWNLOAD_LOCATION']}")
-          system('reg.exe ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" /v Path /t REG_EXPAND_SZ /d %path% /f')
-
-          broadcast_windows_system_message
           ENV['PATH'] = "#{ENV['PATH']};#{ENV['SE_DOWNLOAD_LOCATION']}"
+          require 'win32/registry'
+          Win32::Registry::HKEY_LOCAL_MACHINE.open(
+            "SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Environment",
+            Win32::Registry::KEY_WRITE) do |key|
+              key['PATH'] = ENV['PATH']
+            end
+          broadcast_windows_system_message
         when 'mac32', 'linux32', 'linux64'
           unless set?
             unless bash_updated?
@@ -46,7 +49,7 @@ module SeleniumPrep
 
         def self.broadcast_windows_system_message
           # See https://github.com/tourdedave/selenium-prep/issues/3 for details
-          require 'Win32API'  
+          require 'Win32API'
 
           send_message_timeout = Win32API.new('user32', 'SendMessageTimeout', 'LLLPLLP', 'L')
           hwnd_broadcast = 0xffff
