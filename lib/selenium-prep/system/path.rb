@@ -48,12 +48,12 @@ module SeleniumPrep
           # See https://github.com/tourdedave/selenium-prep/issues/3 for details
           require 'Win32API'  
 
-          send_message_timeout = Win32API.new('user32', 'SendMessageTimeout', 'LLLPLLP', 'L') 
-          HWND_BROADCAST = 0xffff
-          WM_SETTINGCHANGE = 0x001A
-          SMTO_ABORTIFHUNG = 2
+          send_message_timeout = Win32API.new('user32', 'SendMessageTimeout', 'LLLPLLP', 'L')
+          hwnd_broadcast = 0xffff
+          wm_settingchange = 0x001A
+          smto_abortifhung = 2
           result = 0
-          send_message_timeout.call(HWND_BROADCAST, WM_SETTINGCHANGE, 0, 'Environment', SMTO_ABORTIFHUNG, 5000, result)
+          send_message_timeout.call(hwnd_broadcast, wm_settingchange, 0, 'Environment', smto_abortifhung, 5000, result)
         end
 
     end
